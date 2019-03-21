@@ -10,20 +10,14 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.authority.AuthorityUtils;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import cjSecurity.dto.DTOLogin;
-import cjSecurity.dto.JSONCredentialInfos;
 import cjSecurity.dto.JWTResponse;
 import cjSecurity.model.role.Role;
 import cjSecurity.model.user.User;
@@ -46,7 +40,7 @@ public class AnonymousController {
 	private PasswordEncoder encoder;
 	
 	@Autowired
-	private IRoleRepository roles;
+	private IRoleRepository rolesR;
 	
 	@Autowired
 	private IUserService users;
@@ -60,25 +54,23 @@ public class AnonymousController {
 
 		User john = new User();
 		Set <Role> role = new HashSet<Role>();
-		Role roleToAdd = roles.findByLabel("user");
+		Role roleToAdd = rolesR.findByLabel("user");
 		role.add(roleToAdd);
 
 		john.setLogin(user.getLogin());
 		john.setMail(user.getMail());
 		john.setRoles(role);
-		john.setPasswordHash(user.getPasswordHash());
-		//john.setPasswordHash(encoder.encode(user.getPasswordHash()));
+		john.setPasswordHash(encoder.encode(user.getPasswordHash()));
 		john.setLastName(user.getLastName());
 		john.setFirstName(user.getFirstName());
 
-		return new ResponseEntity<User>(users.createUser(john),HttpStatus.ACCEPTED);
+		return new ResponseEntity<User>(users.createUser(john),HttpStatus.OK);
 	}
 	
 	@PostMapping("/login")
 	public ResponseEntity<?> connexion(@RequestBody DTOLogin login, HttpServletRequest request) throws Exception {
 				
 		if (!usersR.existsByLogin(login.getUsername())) {
-			System.out.println(login.getUsername());
 			return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Bad user");
 		}
 
@@ -102,8 +94,12 @@ public class AnonymousController {
 		
 		
 		JWTResponse response = new JWTResponse();
+		Role rol = new Role();
+		for (Role role : josh.getRoles()) {
+			rol = rolesR.findByLabel(role.getLabel());
+		}
 		response.setJwt(jwt);
-		response.setRoles(josh.getRoles());
+		response.setRole(rol);
 		response.setId(josh.getId());
 		return ResponseEntity.ok().body(response);
 

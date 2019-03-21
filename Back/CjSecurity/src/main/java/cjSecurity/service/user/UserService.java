@@ -7,24 +7,11 @@ import org.springframework.stereotype.Service;
 
 import cjSecurity.model.role.Role;
 import cjSecurity.model.user.User;
-import cjSecurity.repository.activitySector.IActivitySectorRepository;
-import cjSecurity.repository.application.IApplicationRepository;
-import cjSecurity.repository.quotation.IQuotationRepository;
 import cjSecurity.repository.role.IRoleRepository;
 import cjSecurity.repository.user.IUserRepository;
-import lombok.extern.slf4j.Slf4j;
 
 @Service
 public class UserService implements IUserService{
-
-	@Autowired
-	private IActivitySectorRepository activitySector;
-	
-	@Autowired
-	private IApplicationRepository applications;
-	
-	@Autowired
-	private IQuotationRepository quotations;
 	
 	@Autowired
 	private IRoleRepository roles;

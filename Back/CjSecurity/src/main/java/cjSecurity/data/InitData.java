@@ -6,7 +6,7 @@ import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
-//import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import cjSecurity.model.activitySector.ActivitySector;
@@ -30,8 +30,8 @@ public class InitData implements CommandLineRunner{
 	@Autowired
 	private IActivitySectorRepository activitySector;
 	
-//	@Autowired
-//	PasswordEncoder encoder;
+	@Autowired
+	PasswordEncoder encoder;
 	
 	
 	@Override
@@ -44,8 +44,7 @@ public class InitData implements CommandLineRunner{
 		}
 	
 		if (users.count() == 0) {		
-//				User jack = new User("admin", encoder.encode("root"), "admin@root", "john", "be", null);
-			User jack = new User("admin", "root", "admin@root", "john", "be", null);
+				User jack = new User("admin", encoder.encode("root"), "admin@root", "john", "be", null);
 				Set<Role> jackR = new HashSet<Role>();
 				Role admin = roles.findById(2L).get();
 				jackR.add(admin);

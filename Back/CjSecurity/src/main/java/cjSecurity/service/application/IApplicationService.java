@@ -14,5 +14,5 @@ public interface IApplicationService {
 	Application updateApplication(UserApplicationDTO application);
 	List<Application> allApplication();
 	ApplicationDTO getApplication(Long id);
-	void removeApplication(Long id);
+	void removeApplication(Long id) throws Exception;
 }

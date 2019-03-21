@@ -1,6 +1,11 @@
 package cjSecurity.controller;
 
+import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -26,8 +31,6 @@ import cjSecurity.service.user.IUserService;
 @SpringBootTest
 public class TestController {
 
-	@Autowired
-	private IRoleRepository roles;
 	
 	@Autowired
 	private IUserRepository users;
@@ -46,8 +49,8 @@ public class TestController {
 	
 	@Before
 	public void deleteAll() {
-		users.deleteAll();
-		applications.deleteAll();
+	//	users.deleteAll();
+	//	applications.deleteAll();
 	}
 	
 	@Test
@@ -78,5 +81,13 @@ public class TestController {
 		applicationService.createApplication(apply);
 		
 		assertEquals(applications.count(), 1);
+	}
+	
+	@Test
+	public void userGetAll() {
+		List<User> liste = new ArrayList<User>();
+		liste= userService.allUser();
+		
+		assertEquals(liste.size(), 2);
 	}
 }

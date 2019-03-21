@@ -11,27 +11,19 @@ import cjSecurity.model.application.Application;
 import cjSecurity.model.user.User;
 import cjSecurity.repository.activitySector.IActivitySectorRepository;
 import cjSecurity.repository.application.IApplicationRepository;
-import cjSecurity.repository.quotation.IQuotationRepository;
-import cjSecurity.repository.role.IRoleRepository;
 import cjSecurity.repository.user.IUserRepository;
-import cjSecurity.service.user.UserService;
 import lombok.extern.slf4j.Slf4j;
 
 @Service
-public class ApplicationService implements IApplicationService{
-	
+@Slf4j
+public class ApplicationService implements IApplicationService {
+
 	@Autowired
 	private IActivitySectorRepository activitySector;
-	
+
 	@Autowired
 	private IApplicationRepository applications;
-	
-	@Autowired
-	private IQuotationRepository quotations;
-	
-	@Autowired
-	private IRoleRepository roles;
-	
+
 	@Autowired
 	private IUserRepository users;
 
@@ -45,7 +37,7 @@ public class ApplicationService implements IApplicationService{
 		apply.setNumberCard(application.getNumberCard());
 		apply.setNumberPhone(application.getNumberPhone());
 		apply.setUser(application.getUser());
-		
+
 		return applications.save(apply);
 	}
 
@@ -54,10 +46,9 @@ public class ApplicationService implements IApplicationService{
 		Application result = null;
 		User john = users.findById(application.getUserId()).get();
 		Application apply = john.getApplication();
-		
+
 		apply.setActivitySector(activitySector.findById(application.getSectorId()).get());
 
-		
 		if (application.getAddress() != null) {
 			apply.setAddress(application.getAddress());
 		}
@@ -79,7 +70,7 @@ public class ApplicationService implements IApplicationService{
 
 	@Override
 	public List<Application> allApplication() {
-		
+
 		return applications.findAll();
 	}
 
@@ -100,13 +91,23 @@ public class ApplicationService implements IApplicationService{
 	}
 
 	@Override
-	public void removeApplication(Long id) {
-		User dilan = new User();
-		dilan = users.findById(id).get();
-		
-		applications.delete(dilan.getApplication());
-		
-	}
+	public void removeApplication(Long id) throws Exception {
 
+		// existe t il un user d 'id id
+		if (users.findById(id).isPresent()==false) throw new Exception("pas de user avec l id "+id);
+			log.info("user ok avec id "+id );
+			User user = users.findById(id).get();
+			Long appid = user.getApplication().getId();
+
+			if (applications.findById(appid).isPresent() == false) throw new Exception("pas de candidature pour "+user.getLogin());
+			log.info("appli ok pour user avec id "+id );
+				Application appli = applications.findById(appid).get();
+				log.info("appli id = "+appli.getId());
+				log.info("mon appli = "+user.getApplication());
+				applications.deleteAll();
+				applications.delete(appli);		
+				log.info("appli id = "+appli.getId());
+				log.info("mon appli = "+user.getApplication());
+	}
 
 }

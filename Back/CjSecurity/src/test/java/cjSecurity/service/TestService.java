@@ -138,4 +138,17 @@ public class TestService {
 		
 		assertEquals(applications.count(), 1);
 	}
+	
+	@Test
+	public void removeApplication() {
+		User bob = new User();
+		Application one = new Application();
+		applications.save(one);
+		bob.setApplication(one);
+
+		
+		applications.delete(one);
+		
+		assertEquals(applications.count(), 1);
+	}
 }

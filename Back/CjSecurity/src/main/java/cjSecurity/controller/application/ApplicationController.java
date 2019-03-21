@@ -1,14 +1,12 @@
 package cjSecurity.controller.application;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-//import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,18 +21,15 @@ import cjSecurity.dto.ApplicationDTO;
 import cjSecurity.dto.UserApplicationDTO;
 import cjSecurity.model.activitySector.ActivitySector;
 import cjSecurity.model.application.Application;
-import cjSecurity.model.role.Role;
 import cjSecurity.model.user.User;
 import cjSecurity.repository.activitySector.IActivitySectorRepository;
-import cjSecurity.repository.application.IApplicationRepository;
 import cjSecurity.repository.user.IUserRepository;
 import cjSecurity.service.application.IApplicationService;
 
-@CrossOrigin(origins = "*", allowCredentials = "true")
-//@CrossOrigin(value="*")
+@CrossOrigin(value = "*")
 @RestController
-//@PreAuthorize("hasRole('ROLE_user')")
 @RequestMapping("/apli")
+@PreAuthorize("hasRole('ROLE_admin') or hasRole('ROLE_user')")
 public class ApplicationController {
 	
 	@Autowired
@@ -71,19 +66,20 @@ public class ApplicationController {
 		
 
 		john.setApplication(apply);
-		return new ResponseEntity<Application>(applications.createApplication(apply),HttpStatus.ACCEPTED);
+		return new ResponseEntity<Application>(applications.createApplication(apply),HttpStatus.OK);
 	}
 	
 	
 	@GetMapping("/get/{id}")
 	public ResponseEntity<?> getOne(@PathVariable long id) {
+		// faire un try catch
 		ApplicationDTO apply = null;
 			apply = applications.getApplication(id);
 			if (apply == null) {
 				return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
 			}
 		
-		return new ResponseEntity<ApplicationDTO>((apply), HttpStatus.ACCEPTED);
+		return new ResponseEntity<ApplicationDTO>((apply), HttpStatus.OK);
 	}
 	
 	@GetMapping("/get/all")
@@ -91,7 +87,7 @@ public class ApplicationController {
 		List <Application> list = new ArrayList<Application>();
 		list = applications.allApplication();
 		
-		return new ResponseEntity<List<Application>>((list), HttpStatus.ACCEPTED);
+		return new ResponseEntity<List<Application>>((list), HttpStatus.OK);
 	}
 	
 	@PutMapping("/put")
@@ -99,14 +95,20 @@ public class ApplicationController {
 		Application apply = null;
 		apply = applications.updateApplication(application);
 		
-		return new ResponseEntity<Application>((apply), HttpStatus.ACCEPTED);
+		return new ResponseEntity<Application>((apply), HttpStatus.OK);
 	}
 	
+	//a réparer
 	@DeleteMapping("/delete/{id}")
 	public ResponseEntity<?> deleteApplication(@PathVariable long id) {
-		applications.removeApplication(id);
+		try {
+			applications.removeApplication(id);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
-		return new ResponseEntity<Application>(HttpStatus.ACCEPTED);
+		return new ResponseEntity<Application>(HttpStatus.OK);
 	}
 
 }
