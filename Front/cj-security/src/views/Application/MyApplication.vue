@@ -1,6 +1,5 @@
 <template>
-<div>
-    <h1>Je suis my application</h1>
+<div class=appli>
     <GetApplication/>
     <UpdateApplication/>
     <DeleteApplication/>
@@ -21,6 +20,9 @@ components: {
 }
 </script>
 
-<style>
-
+<style scoped>
+    .appli {
+        width: 40%;
+        margin-left: 50%;
+    }
 </style>

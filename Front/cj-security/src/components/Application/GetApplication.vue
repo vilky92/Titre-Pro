@@ -71,10 +71,11 @@ export default {
 
 <style scoped>
 .formulaire {
-    margin-top: 100px;
-    width: 20%;
+  width: 75%;
     margin-left: 40%;
     text-align: center;
+    background: #F9F9F9;
+    margin-top: -575px;
 }
 #newcontactsubmit {
     padding:6px 0 6px 0;
@@ -85,6 +86,32 @@ export default {
 	width:100px;
 	border:1px solid #ccc;
 	box-shadow:1px 1px 3px #999;
+}
+fieldset{
+  border: 1px solid black;
+}
+
+@media screen and (max-width: 780px) {
+.formulaire {
+  width: 80%;
+    margin-left: 0%;
+    text-align: center;
+    background: #F9F9F9;
+    margin-top: 0px;
+}
+#newcontactsubmit {
+    padding:6px 0 6px 0;
+	font:bold 13px Arial;
+	background:#f5f5f5;
+	color:#555;
+	border-radius:2px;
+	width:80%;;
+	border:1px solid #ccc;
+	box-shadow:1px 1px 3px #999;
+}
+fieldset{
+  border: 1px solid black;
+}
 }
 </style>
 

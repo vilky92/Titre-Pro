@@ -43,7 +43,7 @@
               data-submit="...Sending"
               @click="handleSubmit"
             >
-              <span>Postuler</span>
+              <span>Modifier ma candidature</span>
             </button>
           </fieldset>
         </form>
@@ -62,12 +62,12 @@ export default {
       applications: [],
       application: {
         userId: sessionStorage.getItem("Mon id"),
-        numberCard: "1245",
-        numberPhone: "0525",
-        address: "81 avenue",
-        city: "Paris",
-        coverLetter: "Motiver!!!!",
-        sectorId: 2
+        numberCard: "",
+        numberPhone: "",
+        address: "",
+        city: "",
+        coverLetter: "",
+        sectorId: null
       },
     };
   },
@@ -89,6 +89,7 @@ export default {
         response => {
           this.applications = response.data;
           console.log("sucess", response);
+          location.reload();
         }).catch((response) => {
           console.log("erreur", response);
         }
@@ -119,10 +120,10 @@ export default {
 
 <style scoped>
 .formulaire {
-    margin-top: 100px;
-    width: 20%;
+  width: 75%;
     margin-left: 40%;
     text-align: center;
+    background: #F9F9F9;
 }
 #newcontactsubmit {
     padding:6px 0 6px 0;
@@ -133,6 +134,30 @@ export default {
 	width:100px;
 	border:1px solid #ccc;
 	box-shadow:1px 1px 3px #999;
+}
+fieldset{
+  border: 1px solid black;
+}
+@media screen and (max-width: 780px) { 
+  .formulaire {
+  width: 80%;
+  margin-left: 0%;
+    text-align: center;
+    background: #F9F9F9;
+}
+#newcontactsubmit {
+    padding:6px 0 6px 0;
+	font:bold 13px Arial;
+	background:#f5f5f5;
+	color:#555;
+	border-radius:2px;
+	width:100px;
+	border:1px solid #ccc;
+	box-shadow:1px 1px 3px #999;
+}
+fieldset{
+  border: 1px solid black;
+}
 }
 </style>
 

@@ -76,4 +76,16 @@ export default {};
      a,  p {
         color: white;
     }
+
+    @media screen and (max-width: 780px) {
+
+          figure{
+        margin-top: 20px;
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-evenly;
+        margin-left: -30px;;
+    }
+    }
 </style>

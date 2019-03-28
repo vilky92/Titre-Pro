@@ -5,7 +5,7 @@ const loginPath = "/login";
  * @return {(string|null)} the auth token if found, null otherwise
  */
 const getLocalToken = function getLocalToken() {
-    return window.localStorage.getItem(tokenName);
+    return window.sessionStorage.getItem(tokenName);
 };
 
 /**
@@ -14,7 +14,7 @@ const getLocalToken = function getLocalToken() {
  * @return {undefined} void return
  */
 const setLocalToken = function setLocalToken(token) {
-    window.localStorage.setItem(tokenName, token);
+    window.sessionStorage.setItem(tokenName, token);
 };
 
 /**
@@ -22,7 +22,7 @@ const setLocalToken = function setLocalToken(token) {
  * @return {undefined} void return
  */
 const deleteLocalToken = function deleteLocalToken() {
-    window.localStorage.removeItem(tokenName);
+    window.sessionStorage.removeItem(tokenName);
 };
 
 const logUserOut = function logUserOut(vm) {

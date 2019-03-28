@@ -1,16 +1,5 @@
 <template>
     <div>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <h1>Application</h1>
         <Application/>
     </div>
 </template>

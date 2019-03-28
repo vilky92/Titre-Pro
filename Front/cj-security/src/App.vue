@@ -1,34 +1,67 @@
 <template>
 <div>
-<div class="header">
-    <nav class="nav" role="navigation">
-        <figure class="slide" id="garcon">
-            <img src="./assets/logo.jpg" alt="logo" class="logo">
-        </figure>
-        <a class="btn"><router-link to="/about">CJ-S&eacute;curit&eacute;</router-link></a>
-        <a class="btn"><router-link  to="/">Nos pr&eacute;stations</router-link></a>
-        <a class="btn"><router-link  to="/">Devis</router-link></a>
-        <a class="btn"><router-link  to="/application">Recrutement</router-link></a>
-        <a class="btn"><router-link  to="/profil">Profil</router-link></a>
-        <a class="btn"><router-link  to="/connexion">S'inscrire/se connecter</router-link></a>
+    <div class="header">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li>
+                    <figure class="slide" id="garcon">
+                        <img src="./assets/logo.jpg" alt="logo" class="logo">
+                    </figure>
+                </li>
+                <li class="nav-item active">
+                    <a class="btn"><router-link to="/about">CJ-S&eacute;curit&eacute;</router-link></a>
+                </li>
+                <li class="nav-item">
+                    <a class="btn"><router-link  to="/application">Recrutement</router-link></a>
+                </li>
+                <li class="nav-item">
+                    <a class="btn"><router-link  to="/profil">Profil</router-link></a>
+                </li>
+                <li class="nav-item">
+                    <a class="btn"><router-link  to="/connexion">S'inscrire/se connecter</router-link></a>
+                </li> 
+                <li class="nav-item">
+                    <a class="btn" @click="Disconnected">D&eacute;connexion</a>
+                </li>           
+            </ul>
+        </div>
     </nav>
-</div>
-      <router-view/>
+    </div>
+    <router-view/>
 </div>
 </template>
+<script>
+export default {
+    methods: {
+        Disconnected() {
+            console.log("je suis disconnected")
+            window.sessionStorage.removeItem("Authorization");
+            window.sessionStorage.removeItem("Mes roles");
+            window.sessionStorage.removeItem("Mon id");
+            this.$router.push("connexion")
+        }
+    }
+}
+</script>
+
 
 <style scoped>
-body{
+body {
     width: 100%;
-    height: 100%;
+    height: 100%
 }
 
-.header{
+
+.bg-light {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     flex-wrap: wrap;
     width: 100%;
-    background: black;
+    background: black !important;
     position: fixed;
     top: 0;
     left: 0;
@@ -36,40 +69,50 @@ body{
     height: 80px;
 }
 
-h1{
-    margin-top: auto;
+.navbar-toggler {
+    position: fixed;
+    background: white;
+    z-index: 5;
 }
 
+
+
 .slide{
-width: 20%;
+width: 100%;
+background: white
 }
 
 figure {
     margin-top: 0px;
+    background: white
 }
 
 .logo{
 width: 100%;
-height: 80px;
+height: 70px;
+    margin-left: 0px;
+    padding-left: 0px;
+    background: white
+
 }
 
-nav{
-    display: flex;
-    width:100%;
-}
+
 .header a{
-    border: 1px solid black;
-    width: 20%;
-    text-align:center;
-    text-decoration:none;
+    background: black;
     color: white;
+    text-decoration:none;
     margin:auto;
-    margin-top: 30px;
+    margin-top: 18px;
 }
 
-a {
-    font-family: 'Roboto', sans-serif;   
+a:hover {
+    cursor: pointer
 }
+
+a:not([href]):not([tabindex]) {
+color: white;
+}
+ 
 
 </style>
 <style>
@@ -79,5 +122,6 @@ a {
 
 p {
     font-family: 'Roboto', sans-serif;
-}
+} 
+
 </style>

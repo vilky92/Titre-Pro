@@ -1,31 +1,31 @@
 <template>
-    <div class="formulaire">
+    <div>
         <h1>Inscription</h1>
         <form id="contactes" action method="post">
           <p>{{message}}</p>
-          <fieldset>
+          <fieldset class="field">
             <input placeholder="Nom..." type="noms" required v-model="user.lastName">
           </fieldset>
 
-          <fieldset>
+          <fieldset class="field">
             <input placeholder="prenom..." type="prenoms" required v-model="user.firstName">
           </fieldset>
 
-          <fieldset>
+          <fieldset class="field">
             <input placeholder="pseudo...." type="pseudo" required v-model="user.login">
           </fieldset>
 
-          <fieldset>
+          <fieldset class="field">
             <input
               placeholder="Votre adresse mail..."
-              type="emails"
+              type="email"
               tabindex="2"
               required
               v-model="user.mail"
             >
           </fieldset>
 
-          <fieldset>
+          <fieldset class="field">
             <input
               placeholder="mot de passe "
               type="password"
@@ -35,7 +35,7 @@
             >
           </fieldset>
 
-          <fieldset>
+          <fieldset class="field">
             <input
               placeholder="resaissisez votre mot de passe "
               type="password"
@@ -45,7 +45,7 @@
             >
           </fieldset>
           <!--  -->
-          <fieldset>
+          <fieldset class="fieldI">
             <button
               name="submit"
               type="submit"
@@ -55,7 +55,6 @@
             >
               <span>Inscription</span>
             </button>
-            <p id="test">ICI {{user}}</p>
           </fieldset>
         </form>
     </div>
@@ -142,11 +141,28 @@ export default {
 </script>
 
 <style scoped>
-.formulaire {
+h1{
+  margin-top: 100px;
+  margin-left: 45%;
+}
+#contactes {
     margin-top: 100px;
     width: 20%;
     margin-left: 40%;
-    text-align: center;
+    border: 2px solid black;
+    display:flex;
+    flex-direction: column;
+    background:#F9F9F9;
+
+}
+.field {
+  margin-top: 10px;
+  border: 1px solid black;
+  margin-bottom: 10px;
+}
+
+input{
+  width: 100%;
 }
 #newcontactsubmit {
     padding:6px 0 6px 0;
@@ -154,8 +170,30 @@ export default {
 	background:#f5f5f5;
 	color:#555;
 	border-radius:2px;
-	width:100px;
+	width:60%;
 	border:1px solid #ccc;
 	box-shadow:1px 1px 3px #999;
+    margin-left: 20%;
+  margin-right: 20%;
+  margin-top: 5px;
+}
+
+.fieldI {
+  margin-top: 10px;
+  border: 1px solid black;
+  margin-bottom: 10px;
+  margin-left: 20%;
+  margin-right: 20%;
+}
+
+@media screen and (max-width: 780px) {
+  h1 {
+    margin-left: 35%
+  }
+#contactes {
+    width: 80%;
+    margin-left: 10%;
+    margin-bottom: 20px;
+  }
 }
 </style>

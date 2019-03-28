@@ -30,7 +30,7 @@
       <input placeholder="Confirm password" type="password" tabindex="6" required v-model="passwordTwo">
     </fieldset>
     <fieldset>            
-        <button id="contact-submit" @click="handleSubmit">Submit</button>
+        <button id="contact-submit" @click="handleSubmit">Modifier mon compte</button>
     </fieldset>
   </form>
  
@@ -87,7 +87,7 @@ data() {
 
       updateUser(user) {
         console.log(user.id);
-      axios.put("http://localhost:8181/user/put/"+ sessionStorage.getItem("Mon id"), user).then(
+      axios.put("user/put/"+ sessionStorage.getItem("Mon id"), user).then(
         response => {
           this.users = response.data;
           this.$store.state.userId= response.data.id;
@@ -165,19 +165,9 @@ data() {
 	text-rendering:optimizeLegibility;
 }
 
-body {
-	font-family:"Open Sans", Helvetica, Arial, sans-serif;
-	font-weight:300;
-	font-size: 12px;
-	line-height:30px;
-	color:#777;
-	background:#0CF;
-}
-
 .container {
-	max-width:400px;
-	width:100%;
-	margin:0 auto;
+	width:40%;
+	margin-left: 5%;  
 	position:relative;
 }
 
@@ -261,7 +251,33 @@ fieldset {
  color:#888;
 }
 
-h1{
-    color: red;
+#contact-submit {
+
+  padding:6px 0 6px 0;
+	font:bold 13px Arial;
+	background:#f5f5f5;
+	color:#555;
+	border-radius:2px;
+	width:40%;
+	border:1px solid #ccc;
+	box-shadow:1px 1px 3px #999;
+  margin-left: 25%;
+  margin-top: 15px;
+
+}
+
+#contact-submit:hover {
+  cursor: pointer;
+}
+
+@media screen and (max-width: 780px) {
+  h1 {
+    margin-left: 35%
+  }
+#contactes {
+    width: 80%;
+    margin-left: 10%;
+    margin-bottom: 20px;
+  }
 }
 </style>

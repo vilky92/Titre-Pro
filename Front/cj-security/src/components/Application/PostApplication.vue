@@ -88,6 +88,7 @@ export default {
         response => {
           this.applications = response.data;
           console.log("sucess", response);
+          this.$router.push("profil")
         }).catch((response) => {
           console.log("erreur", response);
         }
@@ -117,11 +118,13 @@ export default {
 </script>
 
 <style scoped>
+
 .formulaire {
     margin-top: 100px;
     width: 20%;
     margin-left: 40%;
     text-align: center;
+    background: #F9F9F9;
 }
 #newcontactsubmit {
     padding:6px 0 6px 0;
@@ -133,4 +136,8 @@ export default {
 	border:1px solid #ccc;
 	box-shadow:1px 1px 3px #999;
 }
+fieldset{
+  border: 1px solid black;
+}
+
 </style>
